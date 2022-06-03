@@ -1,3 +1,6 @@
+let playerScore = 0;
+let computerScore = 0;
+
 function computerPlay() {
   // Get the computer to generate a move.
   const num = Math.floor(Math.random() * 3) + 1;
@@ -16,8 +19,10 @@ function playRound(playerSelection, computerSelection) {
   if (playerSelection == "Rock" && computerSelection == "Rock" || playerSelection == "Paper" && computerSelection == "Paper" || playerSelection == "Scissors" && computerSelection == "Scissors") {
     return `It's a tie! ${playerSelection} can't beat ${computerSelection}!`;
   } else if (playerSelection == "Rock" && computerSelection == "Scissors" || playerSelection == "Paper" && computerSelection == "Rock" || playerSelection == "Scissors" && computerSelection == "Paper") {
+    playerScore++;
     return `You win! ${playerSelection} beats ${computerSelection}!`;
   } else {
+    computerScore++;
     return `You lose! ${computerSelection} beats ${playerSelection}!`;
   }
 }
@@ -41,7 +46,20 @@ function getMove() {
   return playerSelection
 }
 
+function checkWinner() {
+  if (playerScore > computerScore) {
+    console.log(`You win! ${playerScore} : ${computerScore}`);
+  } else if (computerScore > playerScore) {
+    console.log(`Computer wins! ${computerScore} : ${playerScore}`);
+  } else {
+    console.log(`It's a tie! ${computerScore} : ${playerScore}`);
+  }
+}
+
 function game() {
+  playerScore = 0;
+  computerScore = 0;
+
   // Main game loop.
   for (let i = 0; i < 5; i++) {
     let playerSelection = getMove();
@@ -51,6 +69,8 @@ function game() {
     let result = playRound(playerSelection, computerSelection);
     console.log(result);
   }
+
+  checkWinner()
 }
 
 function toTitleCase(text) {
